@@ -11,9 +11,11 @@
 			
 		function main(){
 			var m = 1;//= generateFunc();
+			var n = 1;
 			var b = 0;
 			var data = generateData();
 			classify(m, b, data)
+			analyze(data)
 		}
 		function generateFunc(){
 			var m = Math.random()*10;
@@ -35,7 +37,7 @@
 					drawCircle(data[i][0],data[i][1])
 				else 
 					drawCross(data[i][0], data[i][1])
-			console.log(data[i][0],data[i][1])
+			//console.log(data[i][0],data[i][1])
 			}
 		
 		}
@@ -62,6 +64,39 @@
 			ctx.closePath();
 			ctx.stroke();
 		}
+		function analyze(data){
+			var origin = data[0]
+		//	console.log(origin)
+			var done = false;
+			while (1){
+				if (done){
+					console.log(origin)
+					break;
+				}
+				for (var i=0; i<dataAmounts; i++){
+					if(data[i][1] - data[i][0]*1 - 0 >= 0 && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] < 0){
+						origin[0] = origin[0] + data[i][0];
+						origin[1] = origin[1] + data[i][1];
+						origin[2] = origin[2] + data[i][2];
+						break;
+					}	
+					else if(data[i][1] - data[i][0]*1 - 0 < 0 && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] >= 0){
+						origin[0] = origin[0] - data[i][0];
+						origin[1] = origin[1] - data[i][1];
+						origin[2] = origin[2] - data[i][2];
+						break;
+					}
+					if( i == dataAmounts - 1){
+						done = true;
+						break;
+					}
+					
+				}
+				
+			}
+				
+		}
+		
 	</script>
 </head>
 <body onload = "main()">
