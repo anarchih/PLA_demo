@@ -15,7 +15,8 @@
 			var b = 0;
 			var data = generateData();
 			classify(m, b, data)
-			analyze(data)
+			var result = analyze(data)
+			drawline(result)
 		}
 		function generateFunc(){
 			var m = Math.random()*10;
@@ -94,7 +95,18 @@
 				}
 				
 			}
+			return origin
 				
+		}
+		function drawline (result){
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			//ctx.fillStyle = "#FF0000";
+			ctx.strokeStyle = "#000000"
+			ctx.beginPath();
+			ctx.moveTo(0,(-result[0]*0-result[2])/result[1]);
+			ctx.lineTo(500,(-result[0]*500-result[2])/result[1]);
+			ctx.stroke();
 		}
 		
 	</script>
