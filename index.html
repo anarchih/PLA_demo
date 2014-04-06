@@ -1,0 +1,72 @@
+<html>
+<head>
+	<style>
+	/*	#myCanvas {
+			height: 500px;
+			width: 500px;
+		}*/
+	</style>
+	<script>
+		var dataAmounts = 30	
+			
+		function main(){
+			var m = 1;//= generateFunc();
+			var b = 0;
+			var data = generateData();
+			classify(m, b, data)
+		}
+		function generateFunc(){
+			var m = Math.random()*10;
+			var b = Math.random()*10;
+			return m;
+		}
+		function generateData(){
+			var data = [];
+			for (var i=0; i<dataAmounts; i++){
+				x = Math.random()*500
+				y = Math.random()*500
+				data[i] = [x, y, 1];
+			}
+			return data
+		}
+		function classify(m, b, data){
+			for (var i=0; i<dataAmounts; i++){
+				if (data[i][1] - data[i][0]*m - b >= 0)
+					drawCircle(data[i][0],data[i][1])
+				else 
+					drawCross(data[i][0], data[i][1])
+			console.log(data[i][0],data[i][1])
+			}
+		
+		}
+		function drawCircle(x, y){
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			//ctx.fillStyle = "#0000";
+			ctx.strokeStyle= "#0000ff";
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.arc(x, y, 10, 0, Math.PI*2, true);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawCross(x, y){
+		
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			//ctx.fillStyle = "#FF0000";
+			ctx.strokeStyle= "#ff0000";
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.arc(x, y, 10, 0, Math.PI*2, true);
+			ctx.closePath();
+			ctx.stroke();
+		}
+	</script>
+</head>
+<body onload = "main()">
+	<canvas id = "myCanvas" height="500" width="500">
+	
+	</canvas>
+</body>
+</html>
