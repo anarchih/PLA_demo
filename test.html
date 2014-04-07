@@ -1,0 +1,118 @@
+<html>
+<head>
+	<script>
+		var dataAmounts = 100	
+		var TrueOrFalse = []	
+		function main(){
+			var m = generateFunc();	
+			var data = generateData();
+			var data2 = data
+			classify(m, data)
+
+			drawline(m,'#000000')
+			var result = analyze(m, data)
+			drawline(result,'#00ff00')
+		}
+		function generateFunc(){
+			var m = []
+			m[0] = Math.random()*9+0.1;
+			m[1] = Math.random()*9-9.1;
+			m[2] = Math.random()*100+100;
+			return m;
+		}
+		function generateData(){
+			var data = [];
+			for (var i=0; i<dataAmounts; i++){
+				x = Math.random()*500
+				y = Math.random()*500
+				data[i] = [x, y, 1];
+				
+			}
+			return data
+		}
+		function classify(m, data){
+			for (var i=0; i<dataAmounts; i++){
+				if (data[i][1]*m[1] + data[i][0]*m[0] + m[2] >= 0){
+					drawCircle(data[i][0],data[i][1])
+					TrueOrFalse[i] = 1;
+					}
+				else {
+					drawCross(data[i][0], data[i][1])
+					TrueOrFalse[i] = 0
+					}
+			}
+		
+		}
+		function drawCircle(x, y){
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.strokeStyle= "#0000ff";
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.arc(x, y, 10, 0, Math.PI*2, true);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function drawCross(x, y){
+		
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.strokeStyle= "#ff0000";
+			ctx.lineWidth = 2;
+			ctx.beginPath();
+			ctx.arc(x, y, 10, 0, Math.PI*2, true);
+			ctx.closePath();
+			ctx.stroke();
+		}
+		function analyze(m, data){
+			var origin = [data[0][0],data[0][1],data[0][2]]
+			origin[0] = 1;
+			var done = false;
+			count = 0
+			while (1){
+				if (done){
+					break;
+				}
+				for (var i=0; i<dataAmounts; i++){
+					if(TrueOrFalse[i] && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] < 0){
+						origin[0] = origin[0] + data[i][0];
+						origin[1] = origin[1] + data[i][1];
+						origin[2] = origin[2] + data[i][2];
+						break;
+					}	
+					else if(!TrueOrFalse[i] && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] >= 0){	
+						origin[0] = origin[0] - data[i][0];
+						origin[1] = origin[1] - data[i][1];
+						origin[2] = origin[2] - data[i][2];
+						break;
+					}
+					
+					if( i == dataAmounts - 1){
+						done = true;
+						break;
+					}
+					
+				}
+				
+			}
+			return origin
+				
+		}
+		function drawline (result,color){
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			ctx.strokeStyle = color;
+			ctx.beginPath();
+			ctx.moveTo(0,(-result[0]*0-result[2]*1)/result[1]);
+			ctx.lineTo(500,(-result[0]*500-result[2]*1)/result[1]);
+			ctx.stroke();
+		}
+		
+	</script>
+</head>
+<body onload = "main()">
+	<canvas id = "myCanvas" height="500" width="500">
+	
+	</canvas>
+</body>
+</html>
