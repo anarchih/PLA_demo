@@ -1,118 +1,79 @@
+<!DOCTYPE html>
 <html>
-<head>
-	<script>
-		var dataAmounts = 100	
-		var TrueOrFalse = []	
-		function main(){
-			var m = generateFunc();	
-			var data = generateData();
-			var data2 = data
-			classify(m, data)
 
-			drawline(m,'#000000')
-			var result = analyze(m, data)
-			drawline(result,'#00ff00')
-		}
-		function generateFunc(){
-			var m = []
-			m[0] = Math.random()*9+0.1;
-			m[1] = Math.random()*9-9.1;
-			m[2] = Math.random()*100+100;
-			return m;
-		}
-		function generateData(){
-			var data = [];
-			for (var i=0; i<dataAmounts; i++){
-				x = Math.random()*500
-				y = Math.random()*500
-				data[i] = [x, y, 1];
-				
-			}
-			return data
-		}
-		function classify(m, data){
-			for (var i=0; i<dataAmounts; i++){
-				if (data[i][1]*m[1] + data[i][0]*m[0] + m[2] >= 0){
-					drawCircle(data[i][0],data[i][1])
-					TrueOrFalse[i] = 1;
-					}
-				else {
-					drawCross(data[i][0], data[i][1])
-					TrueOrFalse[i] = 0
-					}
-			}
-		
-		}
-		function drawCircle(x, y){
-			var c = document.getElementById("myCanvas");
-			var ctx = c.getContext("2d");
-			ctx.strokeStyle= "#0000ff";
-			ctx.lineWidth = 2;
-			ctx.beginPath();
-			ctx.arc(x, y, 10, 0, Math.PI*2, true);
-			ctx.closePath();
-			ctx.stroke();
-		}
-		function drawCross(x, y){
-		
-			var c = document.getElementById("myCanvas");
-			var ctx = c.getContext("2d");
-			ctx.strokeStyle= "#ff0000";
-			ctx.lineWidth = 2;
-			ctx.beginPath();
-			ctx.arc(x, y, 10, 0, Math.PI*2, true);
-			ctx.closePath();
-			ctx.stroke();
-		}
-		function analyze(m, data){
-			var origin = [data[0][0],data[0][1],data[0][2]]
-			origin[0] = 1;
-			var done = false;
-			count = 0
-			while (1){
-				if (done){
-					break;
-				}
-				for (var i=0; i<dataAmounts; i++){
-					if(TrueOrFalse[i] && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] < 0){
-						origin[0] = origin[0] + data[i][0];
-						origin[1] = origin[1] + data[i][1];
-						origin[2] = origin[2] + data[i][2];
-						break;
-					}	
-					else if(!TrueOrFalse[i] && origin[0]*data[i][0] + origin[1]*data[i][1] + origin[2]*data[i][2] >= 0){	
-						origin[0] = origin[0] - data[i][0];
-						origin[1] = origin[1] - data[i][1];
-						origin[2] = origin[2] - data[i][2];
-						break;
-					}
-					
-					if( i == dataAmounts - 1){
-						done = true;
-						break;
-					}
-					
-				}
-				
-			}
-			return origin
-				
-		}
-		function drawline (result,color){
-			var c = document.getElementById("myCanvas");
-			var ctx = c.getContext("2d");
-			ctx.strokeStyle = color;
-			ctx.beginPath();
-			ctx.moveTo(0,(-result[0]*0-result[2]*1)/result[1]);
-			ctx.lineTo(500,(-result[0]*500-result[2]*1)/result[1]);
-			ctx.stroke();
-		}
-		
-	</script>
-</head>
-<body onload = "main()">
-	<canvas id = "myCanvas" height="500" width="500">
-	
-	</canvas>
-</body>
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Pla demo : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Pla demo</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/anarchih/PLA_demo">View on GitHub</a>
+
+          <h1 id="project_title">Pla demo</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/anarchih/PLA_demo/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/anarchih/PLA_demo/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>
+<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>
+<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>
+<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Pla demo maintained by <a href="https://github.com/anarchih">anarchih</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
 </html>
